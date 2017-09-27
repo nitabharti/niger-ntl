@@ -1,0 +1,26 @@
+
+
+
+##import pixels of Niamey: lat long coordinates, pixel indices, and commune designation
+
+nia.ind.pix.com.coord <- read.csv ("nia.ind.pix.com.coord.csv", header=T)
+plot(nia.ind.pix.com.coord[,1:2],col=nia.ind.pix.com.coord[,4])
+
+communes <- split(seq(1:340),nia.ind.pix.com.coord[,4])
+
+
+##import csv file columns: city,pixelID,X,Y,1095 days of brightness values
+##three years of smoothed brightness values 1095 days
+##cities: Niamey first 340; Maradi next 116; Zinder next 117; Agadez next 79; Katsina next 273
+
+
+cit5.pixind.smthbrt.3 <- read.csv("city5.pixind.coords.smthbrt3.csv", header=T)
+
+matplot(t(cit5.pixind.smthbrt.3[1:340,6:1100]),type='l', col= nia.ind.pix.com.coord[,4])  ##plot Niamey smoothed brightness for three years
+
+
+##plot Niamey communes smoothed brightness for three years
+par(mfrow=c(1,3))
+for (i in 1:3){
+matplot(t(cit5.pixind.smthbrt.3[communes[[i]],6:1100]),type='l', col= i)
+}
